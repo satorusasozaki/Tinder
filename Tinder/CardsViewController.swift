@@ -10,16 +10,22 @@ import UIKit
 
 class CardsViewController: UIViewController {
 
+    var profileOriginalCenter: CGPoint!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func profilePanGesture(_ sender: UIPanGestureRecognizer) {
+        if sender.state == UIGestureRecognizerState.began {
+            profileOriginalCenter = sender.view?.center
+        } else if sender.state == UIGestureRecognizerState.changed {
+            let translation = sender.translation(in: self.view)
+            sender.view?.center = CGPoint(x: profileOriginalCenter.x + translation.x, y: profileOriginalCenter.y)
+        }
     }
+
     
 
     /*
