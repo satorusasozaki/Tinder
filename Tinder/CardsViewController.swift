@@ -11,20 +11,37 @@ import UIKit
 class CardsViewController: UIViewController {
 
     var profileOriginalCenter: CGPoint!
+    @IBOutlet weak var ryanImageView: UIImageView!
+    var ryanImageViewHeight: CGFloat!
+    var ryanImageViewInitialCenter: CGPoint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        ryanImageViewHeight = ryanImageView.frame.height
+        ryanImageViewInitialCenter = ryanImageView.center
         // Do any additional setup after loading the view.
     }
     
     @IBAction func profilePanGesture(_ sender: UIPanGestureRecognizer) {
         
         let translation = sender.translation(in: self.view)
+        
+        print("location: \(sender.location(in: self.view))")
+        
+        let location = sender.location(in: self.view)
+        print("center: \(sender.view?.center)")
+        
+        
+
         // degree to radian: degree * pi/180
         // why I cannot just go with radians? why do I need to divide translation.x by radians?
         var rotation = translation.x / 10 * CGFloat(M_PI / 180)
         //var rotation = 30 * CGFloat(M_PI / 180)
         print("translation: \(translation)")
+        
+        if sender.location(in: self.view).y > (sender.view?.center.y)! {
+            rotation = -rotation
+        }
         
         if sender.state == UIGestureRecognizerState.began {
             
@@ -38,6 +55,24 @@ class CardsViewController: UIViewController {
             sender.view?.transform = CGAffineTransform.init(rotationAngle: rotation)
             
         } else if sender.state == UIGestureRecognizerState.ended {
+            
+            if sender.velocity(in: view).x > 50 {
+                UIView.animate(withDuration: 0.3, animations: {
+                    sender.view?.center.x += self.view.frame.width
+                })
+                
+            } else if sender.velocity(in: view).x < -50 {
+                UIView.animate(withDuration: 0.3, animations: {
+                    sender.view?.center.x -= self.view.frame.width
+                })
+                
+            } else {
+                UIView.animate(withDuration: 0.3, animations: {
+                    sender.view?.center = self.ryanImageViewInitialCenter
+                    sender.view?.transform = CGAffineTransform.identity
+                })
+                
+            }
             
         }
     }
