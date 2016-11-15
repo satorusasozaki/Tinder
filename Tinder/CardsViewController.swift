@@ -18,15 +18,29 @@ class CardsViewController: UIViewController {
     }
     
     @IBAction func profilePanGesture(_ sender: UIPanGestureRecognizer) {
+        
+        let translation = sender.translation(in: self.view)
+        // degree to radian: degree * pi/180
+        // why I cannot just go with radians? why do I need to divide translation.x by radians?
+        var rotation = translation.x / 10 * CGFloat(M_PI / 180)
+        //var rotation = 30 * CGFloat(M_PI / 180)
+        print("translation: \(translation)")
+        
         if sender.state == UIGestureRecognizerState.began {
+            
             profileOriginalCenter = sender.view?.center
+            
         } else if sender.state == UIGestureRecognizerState.changed {
-            let translation = sender.translation(in: self.view)
+            
             sender.view?.center = CGPoint(x: profileOriginalCenter.x + translation.x, y: profileOriginalCenter.y)
+            // As the view slide 1 point represented in translation, it rotates based on the radius corresponding to the translation
+            // 1 translation = x radius, 2 translation = 2x radius
+            sender.view?.transform = CGAffineTransform.init(rotationAngle: rotation)
+            
+        } else if sender.state == UIGestureRecognizerState.ended {
+            
         }
     }
-
-    
 
     /*
     // MARK: - Navigation
