@@ -17,21 +17,15 @@ class CardsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         ryanImageViewHeight = ryanImageView.frame.height
         ryanImageViewInitialCenter = ryanImageView.center
-        // Do any additional setup after loading the view.
+
     }
     
     @IBAction func profilePanGesture(_ sender: UIPanGestureRecognizer) {
         
         let translation = sender.translation(in: self.view)
-        
-        print("location: \(sender.location(in: self.view))")
-        
-        let location = sender.location(in: self.view)
-        print("center: \(sender.view?.center)")
-        
-        
 
         // degree to radian: degree * pi/180
         // why I cannot just go with radians? why do I need to divide translation.x by radians?
@@ -55,7 +49,6 @@ class CardsViewController: UIViewController {
             sender.view?.transform = CGAffineTransform.init(rotationAngle: rotation)
             
         } else if sender.state == UIGestureRecognizerState.ended {
-            
             if sender.velocity(in: view).x > 50 {
                 UIView.animate(withDuration: 0.3, animations: {
                     sender.view?.center.x += self.view.frame.width
