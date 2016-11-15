@@ -66,18 +66,12 @@ class CardsViewController: UIViewController {
                 })
                 
             }
-            
         }
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func onProfileTapGesture(_ sender: UITapGestureRecognizer) {
+        let profileViewController = ProfileViewController(nibName: "ProfileViewController", bundle: nil)
+        present(profileViewController, animated: true, completion: nil)
     }
-    */
 
 }

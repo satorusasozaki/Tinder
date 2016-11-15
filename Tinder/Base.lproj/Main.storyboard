@@ -31,6 +31,7 @@
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="W21-D1-aPp" appends="YES" id="eyY-QE-HMC"/>
+                                    <outletCollection property="gestureRecognizers" destination="jX0-GX-Rah" appends="YES" id="kFT-qR-umq"/>
                                 </connections>
                             </imageView>
                         </subviews>
@@ -46,6 +47,11 @@
                         <action selector="profilePanGesture:" destination="BYZ-38-t0r" id="Wbb-11-hqa"/>
                     </connections>
                 </panGestureRecognizer>
+                <tapGestureRecognizer id="jX0-GX-Rah">
+                    <connections>
+                        <action selector="onProfileTapGesture:" destination="BYZ-38-t0r" id="xMV-tu-K8h"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="83.5" y="152.5"/>
         </scene>
